@@ -18,8 +18,11 @@ string char_to_bracket(string s) {
                    [](unsigned char c){ return std::tolower(c); });
     unordered_map<char, bool> map;
     string res;
-    for(auto& c:s)
-        map.find(c) == map.end() ? map[c] = false : map[c] = true;
+    for(auto& c:s) {
+        auto it = map.find(c);
+        it == map.end() ? map[c] = false : it->second = true;
+    }
+
     for(auto& c:s)
         res.push_back(map[c] ? ')' : '(');
     return res;
